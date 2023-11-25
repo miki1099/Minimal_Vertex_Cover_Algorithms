@@ -1,10 +1,18 @@
-def is_vertex_cover(vertices_genome, connections):
+
+def is_vertex_cover_fitness(vertices_genome, connections):
     vertices = convert_to_list(vertices_genome)
     obstacles = 0
     for connection in connections:
         if connection[0] not in vertices and connection[1] not in vertices:
             obstacles += 1
     return obstacles == 0, obstacles
+
+
+def is_vertex_cover(vertices, connections):
+    for connection in connections:
+        if connection[0] not in vertices and connection[1] not in vertices:
+            return False
+    return True
 
 
 def convert_to_list(vertices_genome):
@@ -14,3 +22,38 @@ def convert_to_list(vertices_genome):
         if bit == '1':
             result.add(i + 1)
     return result
+
+
+def get_chosen_vertices(position):
+    index = []
+    for i in range(len(position)):
+        if position[i] == 1:
+            index.append(i)
+    return index
+
+
+def get_best(particles_locations, connections):
+    vertices_num = len(particles_locations[0])
+    best = [0] * vertices_num
+    best_score = vertices_num
+    for particle in particles_locations:
+        vertices = get_chosen_vertices(particle)
+        if is_vertex_cover(vertices, connections) and best_score < len(vertices):
+            best = particle
+            best_score = len(vertices)
+    return best, best_score
+
+
+def get_valid_or_ones(particles_locations, connections):
+    vertices_num = len(particles_locations[0])
+    all_vertices = [1] * vertices_num
+
+    return_array = []
+
+    for particle in particles_locations:
+        vertices = get_chosen_vertices(particle)
+        if is_vertex_cover(vertices, connections):
+            return_array.append(particle)
+        else:
+            return_array.append(all_vertices)
+    return return_array

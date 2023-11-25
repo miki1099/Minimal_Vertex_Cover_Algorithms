@@ -506,3 +506,16 @@ ValueError: Maximum allowed dimension exceeded
 2023-11-03 21:15:03,914 - pyswarms.discrete.binary - INFO - Optimize for 2000 iters with {'c1': 2, 'c2': 2, 'w': 0.7, 'k': 1, 'p': 1}
 2023-11-03 21:15:49,781 - pyswarms.discrete.binary - INFO - Optimization finished | best cost: 43.0, best pos: [1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 1 1 1 1]
+2023-11-21 19:44:11,706 - pyswarms.discrete.binary - INFO - Optimize for 2000 iters with {'c1': 2, 'c2': 2, 'w': 0.7, 'k': 1, 'p': 1}
+2023-11-21 19:44:57,521 - pyswarms.discrete.binary - INFO - Optimization finished | best cost: 43.0, best pos: [1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1]
+2023-11-21 20:01:57,252 - pyswarms.discrete.binary - INFO - Optimize for 10000 iters with {'c1': 3, 'c2': 3, 'w': 0.7, 'k': 1, 'p': 1}
+2023-11-21 20:07:06,353 - pyswarms.discrete.binary - INFO - Optimization finished | best cost: 42.0, best pos: [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1]
+2023-11-21 20:11:34,921 - pyswarms.discrete.binary - INFO - Optimize for 10000 iters with {'c1': 6, 'c2': 3, 'w': 0.7, 'k': 1, 'p': 1}
+2023-11-21 20:12:03,518 - pyswarms.discrete.binary - INFO - Optimize for 10000 iters with {'c1': 6, 'c2': 3, 'w': 0.7, 'k': 1, 'p': 1}
+2023-11-21 20:13:24,983 - pyswarms.discrete.binary - INFO - Optimize for 10000 iters with {'c1': 6, 'c2': 3, 'w': 0.7, 'k': 1, 'p': 1}
+2023-11-21 20:14:24,201 - pyswarms.discrete.binary - INFO - Optimize for 10000 iters with {'c1': 6, 'c2': 3, 'w': 0.7, 'k': 1, 'p': 1}
+2023-11-25 17:26:07,196 - pyswarms.discrete.binary - INFO - Optimize for 10000 iters with {'c1': 6, 'c2': 3, 'w': 0.7, 'k': 1, 'p': 1}
+2023-11-25 17:43:20,334 - pyswarms.discrete.binary - INFO - Optimize for 10000 iters with {'c1': 6, 'c2': 3, 'w': 0.7, 'k': 1, 'p': 1}
+2023-11-25 17:43:25,238 - pyswarms.discrete.binary - INFO - Optimize for 10000 iters with {'c1': 6, 'c2': 3, 'w': 0.7, 'k': 1, 'p': 1}
