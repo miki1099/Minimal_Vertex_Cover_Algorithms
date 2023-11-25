@@ -80,7 +80,7 @@ def jpso_vertex_cover(graph_data, swarm_size, iterations):
     global_best_val_timeline = []
     for _ in range(iterations):
         neighbour_pos = None
-        for i in range(vertices_num):
+        for i in range(len(swarm_pos)):
             if i == 0:
                 neighbour_pos = [1] * vertices_num
 
@@ -110,7 +110,7 @@ def jpso_vertex_cover(graph_data, swarm_size, iterations):
 
             swarm_pos[i] = particle_pos
         global_best_val_timeline.append(g_best_score)
-        # print(g_best_score)
-        # print(global_best_pos)
+        print(g_best_score)
+        print(global_best_pos)
 
     return global_best_pos, global_best_val_timeline
