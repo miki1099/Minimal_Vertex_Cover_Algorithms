@@ -24,8 +24,9 @@ def zero_out_row_and_column(matrix, index):
 
 def find_vertices_to_correct_cover(combined_particle_pos, adjacency_matrix):
     vertices_to_cover = get_chosen_vertices(combined_particle_pos)
+    a_matrix = adjacency_matrix
     for vertex_index in vertices_to_cover:
-        zero_out_row_and_column(adjacency_matrix, vertex_index)
+        zero_out_row_and_column(a_matrix, vertex_index)
 
     return make_position_valid_solution(combined_particle_pos, adjacency_matrix)
 
@@ -33,9 +34,10 @@ def find_vertices_to_correct_cover(combined_particle_pos, adjacency_matrix):
 def make_position_valid_solution(combined_particle_pos, adjacency_matrix):
     max_amount_of_not_covered_edges = 0
     index_of_max_uncovered = 0
+    a_matrix = adjacency_matrix
 
-    for i in range(len(adjacency_matrix)):
-        not_covered_edges = sum(adjacency_matrix[i])
+    for i in range(len(a_matrix)):
+        not_covered_edges = sum(a_matrix[i])
         if not_covered_edges > max_amount_of_not_covered_edges:
             max_amount_of_not_covered_edges = not_covered_edges
             index_of_max_uncovered = i
@@ -44,8 +46,8 @@ def make_position_valid_solution(combined_particle_pos, adjacency_matrix):
         return combined_particle_pos
     else:
         combined_particle_pos[index_of_max_uncovered] = 1
-        zero_out_row_and_column(adjacency_matrix, index_of_max_uncovered)
-        return make_position_valid_solution(combined_particle_pos, adjacency_matrix)
+        zero_out_row_and_column(a_matrix, index_of_max_uncovered)
+        return make_position_valid_solution(combined_particle_pos, a_matrix)
 
 
 def combine(particle_pos, selected, adjacency_matrix):
@@ -99,6 +101,7 @@ def jpso_vertex_cover(graph_data, swarm_size, iterations):
 
             particle_pos = combine(particle_pos, selected, adjacency_matrix)
             solution_quality = count_vertices(particle_pos)
+            print(solution_quality)
 
             if count_vertices(swarm_local_best[i]) > solution_quality:
                 swarm_local_best[i] = particle_pos
@@ -110,7 +113,7 @@ def jpso_vertex_cover(graph_data, swarm_size, iterations):
 
             swarm_pos[i] = particle_pos
         global_best_val_timeline.append(g_best_score)
-        print(g_best_score)
-        print(global_best_pos)
+        # print(g_best_score)
+        # print(global_best_pos)
 
     return global_best_pos, global_best_val_timeline
