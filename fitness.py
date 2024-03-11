@@ -1,11 +1,11 @@
 
-def is_vertex_cover_fitness(vertices_genome, connections):
+def vertex_cover_fitness(vertices_genome, connections):
     vertices = convert_to_list(vertices_genome)
-    obstacles = 0
+    obstacles_pent = 0
     for connection in connections:
         if connection[0] not in vertices and connection[1] not in vertices:
-            obstacles += 1
-    return obstacles == 0, obstacles
+            obstacles_pent += len(vertices_genome)
+    return vertices_genome, sum(vertices_genome) + obstacles_pent
 
 
 def is_vertex_cover(vertices, connections):
