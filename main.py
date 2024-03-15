@@ -13,7 +13,7 @@ data = create_adjacency_matrix('DIMACS benchmarks/johnson8-2-4.mtx')
 
 # (global_best_pos_abc, global_best_pos_timeline_abc) = abc_vertex_cover(data, 10, 20)
 
-(global_best_pos_gen_khuri, global_best_pos_timeline_gen_khuri) = genetic_khuri(data, 50, 200)
+(global_best_pos_gen_khuri, global_best_pos_timeline_gen_khuri) = genetic_khuri(data, 50, 2000)
 
 print(global_best_pos_gen_khuri)
 print(sum(global_best_pos_gen_khuri))

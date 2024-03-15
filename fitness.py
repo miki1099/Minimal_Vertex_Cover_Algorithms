@@ -16,10 +16,9 @@ def is_vertex_cover(vertices, connections):
 
 
 def convert_to_list(vertices_genome):
-    binary_string = str(vertices_genome)
     result = set()
-    for i, bit in enumerate(binary_string):
-        if bit == '1':
+    for i in range(len(vertices_genome)):
+        if vertices_genome[i] == 1:
             result.add(i + 1)
     return result
 

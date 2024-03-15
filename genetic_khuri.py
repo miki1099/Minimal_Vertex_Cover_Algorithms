@@ -1,4 +1,5 @@
 import random
+import numpy.random as npr
 
 from fitness import vertex_cover_fitness
 
@@ -17,17 +18,17 @@ def initialize_pop(pop_size, gene_size):
     return population
 
 
-def crossover(selected_chromo, gene_size, population, pop_size):
+def crossover(gene_size, population, pop_size):
     offspring_cross = []
     for i in range(int(pop_size)):
-        parent1 = random.choice(selected_chromo)
+        parent1 = select_one(population)
         parent2 = random.choice(population[:int(pop_size * 50)])
 
         p1 = parent1[0]
         p2 = parent2[0]
 
-        crossover_point = random.randint(1, gene_size - 1)
-        child = p1[:crossover_point] + p2[crossover_point:]
+        crossover_points = sorted(random.sample(range(1, gene_size - 1), 2))
+        child = p1[:crossover_points[0]] + p2[crossover_points[0]:crossover_points[1]] + p1[crossover_points[1]:]
         offspring_cross.extend([child])
     return offspring_cross
 
@@ -38,14 +39,15 @@ def mutate(offspring, mut_rate):
     for arr in offspring:
         for i in range(len(arr)):
             if random.random() < mut_rate:
-                arr[i] = random.choice(GENES)
+                arr[i] = abs(arr[i]-1)
         mutated_offspring.append(arr)
     return mutated_offspring
 
 
-def selection(population, pop_size):
-    sorted_chromo_pop = sorted(population, key=lambda x: x[1])
-    return sorted_chromo_pop[:int(0.5 * pop_size)]
+def select_one(population):
+    total_inverse_fitness = sum(1 / chromo[1] for chromo in population)
+    selection_probs = [(1 / chromo[1]) / total_inverse_fitness for chromo in population]
+    return population[npr.choice(len(population), p=selection_probs)]
 
 
 def replace(new_gen, population):
@@ -70,10 +72,8 @@ def genetic_khuri(graph_data, pop_size, iterations):
 
     for _ in range(iterations):
 
-        selected = selection(population, pop_size)
-
         population = sorted(population, key=lambda x: x[1])
-        crossovered = crossover(selected, gene_size, population, pop_size)
+        crossovered = crossover(gene_size, population, pop_size)
 
         mutated = mutate(crossovered, mut_rate)
 
