@@ -1,6 +1,6 @@
 
 def vertex_cover_fitness(vertices_genome, connections):
-    vertices = convert_to_list(vertices_genome)
+    vertices = get_chosen_vertices(vertices_genome)
     obstacles_pent = 0
     for connection in connections:
         if connection[0] not in vertices and connection[1] not in vertices:
@@ -15,20 +15,12 @@ def is_vertex_cover(vertices, connections):
     return True
 
 
-def convert_to_list(vertices_genome):
+def get_chosen_vertices(vertices_genome):
     result = set()
     for i in range(len(vertices_genome)):
         if vertices_genome[i] == 1:
             result.add(i + 1)
     return result
-
-
-def get_chosen_vertices(position):
-    index = []
-    for i in range(len(position)):
-        if position[i] == 1:
-            index.append(i)
-    return index
 
 
 def get_best(particles_locations, connections):
