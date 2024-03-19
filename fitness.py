@@ -1,9 +1,10 @@
+import random
+
 
 def vertex_cover_fitness(vertices_genome, connections):
-    vertices = get_chosen_vertices(vertices_genome)
     obstacles_pent = 0
     for connection in connections:
-        if connection[0] not in vertices and connection[1] not in vertices:
+        if vertices_genome[connection[0]-1] == 0 and vertices_genome[connection[1]-1] == 0:
             obstacles_pent += len(vertices_genome)
     return vertices_genome, sum(vertices_genome) + obstacles_pent
 
@@ -48,3 +49,11 @@ def get_valid_or_ones(particles_locations, connections):
         else:
             return_array.append(all_vertices)
     return return_array
+
+
+def mvc_approx(vertices_genome, connections):
+    for connection in connections:
+        if vertices_genome[connection[0]-1] == 0 and vertices_genome[connection[1]-1] == 0:
+            random_connection_genome = random.choice([0, 1])
+            vertices_genome[connection[random_connection_genome]-1] = 1
+    return vertices_genome
