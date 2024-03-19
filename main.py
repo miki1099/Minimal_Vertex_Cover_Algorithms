@@ -12,11 +12,17 @@ data = create_adjacency_matrix('DIMACS benchmarks/C125-9.mtx')
 
 # (global_best_pos_jpso, global_best_pos_timeline_jpso) = jpso_vertex_cover(data, 10, 20)
 
-# (global_best_pos_abc, global_best_pos_timeline_abc) = abc_vertex_cover(data, 10, 20)
+(global_best_pos_abc, global_best_pos_timeline_abc) = abc_vertex_cover(data, 50, 100)
 
-(global_best_pos_gen_khuri, global_best_pos_timeline_gen_khuri) = genetic_khuri(data, 50, 1000)
+(global_best_pos_gen_khuri, global_best_pos_timeline_gen_khuri) = genetic_khuri(data, 50, 100)
 
-(global_best_pos_gen_approx, global_best_pos_timeline_gen_approx) = genetic_approx(data, 50, 1000)
+(global_best_pos_gen_approx, global_best_pos_timeline_gen_approx) = genetic_approx(data, 50, 100)
+
+print(global_best_pos_abc)
+print(sum(global_best_pos_abc))
+vertices = get_chosen_vertices(global_best_pos_abc)
+print(is_vertex_cover(vertices, data[2]))
+print(global_best_pos_timeline_abc)
 
 print(global_best_pos_gen_khuri)
 print(sum(global_best_pos_gen_khuri))
