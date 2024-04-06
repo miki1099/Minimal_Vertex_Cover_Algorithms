@@ -2,13 +2,8 @@ import sys
 import os
 from openpyxl import load_workbook
 from openpyxl import Workbook
-from abc_algo import abc_vertex_cover
 from adjacency_matrix_creator import create_adjacency_matrix
-from fitness import get_chosen_vertices, is_vertex_cover
-from genetic_khuri import genetic_khuri
-from genetic_with_2_approx import genetic_approx
 from jpso import jpso_vertex_cover
-import time
 
 
 sys.setrecursionlimit(30000)

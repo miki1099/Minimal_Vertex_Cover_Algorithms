@@ -2,13 +2,8 @@ import sys
 import os
 from openpyxl import load_workbook
 from openpyxl import Workbook
-from abc_algo import abc_vertex_cover
 from adjacency_matrix_creator import create_adjacency_matrix
-from fitness import get_chosen_vertices, is_vertex_cover
-from genetic_khuri import genetic_khuri
-from genetic_with_2_approx import genetic_approx
-from jpso import jpso_vertex_cover
-import time
+from genetic_with_approx import genetic_approx
 
 
 sys.setrecursionlimit(30000)
@@ -43,7 +38,7 @@ for index, filename in enumerate(list_dir):
     time_iter_sum = []
 
     for i in range(REPEAT_COUNT):
-        (global_best_pos, global_best_pos_timeline, time_iter) = jpso_vertex_cover(data, 100, timeout)
+        (global_best_pos, global_best_pos_timeline, time_iter) = genetic_approx(data, 100, timeout)
         if i == 0:
             global_best_pos_timeline_sum = global_best_pos_timeline
             time_iter_sum = time_iter
