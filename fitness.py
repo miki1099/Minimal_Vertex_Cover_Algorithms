@@ -17,10 +17,18 @@ def is_vertex_cover(vertices, connections):
 
 
 def get_chosen_vertices(vertices_genome):
-    result = set()
+    result = []
     for i in range(len(vertices_genome)):
         if vertices_genome[i] == 1:
-            result.add(i + 1)
+            result.append(i + 1)
+    return result
+
+
+def get_chosen_indexes(vertices_genome):
+    result = []
+    for i in range(len(vertices_genome)):
+        if vertices_genome[i] == 1:
+            result.append(i)
     return result
 
 

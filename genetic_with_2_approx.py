@@ -1,4 +1,5 @@
 import random
+import time
 import numpy.random as npr
 
 from fitness import mvc_approx
@@ -69,7 +70,8 @@ def simple_fitness(vertices_genome):
     return vertices_genome, sum(vertices_genome)
 
 
-def genetic_approx(graph_data, pop_size, iterations):
+def genetic_approx(graph_data, pop_size, timeout):
+    start_time = time.time()
     (num_vertices, adjacency_matrix, connections) = graph_data
     gene_size = num_vertices
     mut_rate = 1/num_vertices
@@ -83,7 +85,9 @@ def genetic_approx(graph_data, pop_size, iterations):
     for _ in range(len(initial_population)):
         population.append(simple_fitness(initial_population[_]))
 
-    for _ in range(iterations):
+    iter_times = []
+    while time.time() - start_time <= timeout * 60:
+        iter_start_time = time.time()
 
         population = sorted(population, key=lambda x: x[1])
         crossovered = crossover(gene_size, population, pop_size)
@@ -102,5 +106,6 @@ def genetic_approx(graph_data, pop_size, iterations):
 
         global_best_val_timeline.append(g_best_fit)
         population = replace(new_gen, population)
+        iter_times.append(time.time() - iter_start_time)
 
-    return g_best_pos, global_best_val_timeline
+    return g_best_pos, global_best_val_timeline, iter_times

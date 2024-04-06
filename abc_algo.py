@@ -1,4 +1,5 @@
 import random
+import time
 from copy import deepcopy
 
 from fitness import get_best, get_chosen_vertices, mvc_approx
@@ -106,13 +107,16 @@ def combine_new_place(bee_pos, new_place_by_onlooker, connections):
     return find_vertices_to_correct_cover(new_place, connections)
 
 
-def abc_vertex_cover(graph_data, swarm_size, iterations):
+def abc_vertex_cover(graph_data, swarm_size, timeout):
+    start_time = time.time()
     (num_vertices, adjacency_matrix, connections) = graph_data
     swarm_pos = init_swarm(swarm_size, num_vertices, connections)
     (global_best_pos, g_best_score) = get_best(swarm_pos, connections)
 
     global_best_val_timeline = []
-    for _ in range(iterations):
+    iter_times = []
+    while time.time() - start_time <= timeout * 60:
+        iter_start_time = time.time()
         for i in range(len(swarm_pos)):
             # employer bee region
             bee_pos = swarm_pos[i]
@@ -140,7 +144,8 @@ def abc_vertex_cover(graph_data, swarm_size, iterations):
             # end scout bee region
 
         global_best_val_timeline.append(g_best_score)
+        iter_times.append(time.time() - iter_start_time)
         # print(g_best_score)
         # print(global_best_pos)
 
-    return global_best_pos, global_best_val_timeline
+    return global_best_pos, global_best_val_timeline, iter_times

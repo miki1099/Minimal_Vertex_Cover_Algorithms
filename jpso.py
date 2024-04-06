@@ -1,7 +1,8 @@
 import random
+import time
 from copy import deepcopy
 
-from fitness import get_best, get_valid_or_ones, get_chosen_vertices
+from fitness import get_best, get_valid_or_ones, get_chosen_indexes
 
 
 def init_swarm(swarm_size, vertices_num):
@@ -23,7 +24,7 @@ def zero_out_row_and_column(matrix, index):
 
 
 def find_vertices_to_correct_cover(combined_particle_pos, adjacency_matrix):
-    vertices_to_cover = get_chosen_vertices(combined_particle_pos)
+    vertices_to_cover = get_chosen_indexes(combined_particle_pos)
     a_matrix = adjacency_matrix
     for vertex_index in vertices_to_cover:
         zero_out_row_and_column(a_matrix, vertex_index)
@@ -58,10 +59,10 @@ def combine(particle_pos, selected, adjacency_matrix):
     combined_particle_pos = deepcopy(particle_pos)
 
     # get vertices indexes when get random some of them to combine
-    vertices_index = get_chosen_vertices(particle_pos)
+    vertices_index = get_chosen_indexes(particle_pos)
     how_much_to_combine = random.randint(0, len(vertices_index))
 
-    selected_vertices_index = get_chosen_vertices(selected)
+    selected_vertices_index = get_chosen_indexes(selected)
 
     for _ in range(how_much_to_combine):
         combine_selector = random.uniform(0, 1)
@@ -75,7 +76,8 @@ def combine(particle_pos, selected, adjacency_matrix):
     return find_vertices_to_correct_cover(combined_particle_pos, A)
 
 
-def jpso_vertex_cover(graph_data, swarm_size, iterations):
+def jpso_vertex_cover(graph_data, swarm_size, timeout):
+    start_time = time.time()
     (num_vertices, adjacency_matrix, connections) = graph_data
     vertices_num = len(adjacency_matrix[0])
     swarm_pos = init_swarm(swarm_size, vertices_num)
@@ -83,7 +85,9 @@ def jpso_vertex_cover(graph_data, swarm_size, iterations):
     (global_best_pos, g_best_score) = get_best(swarm_pos, connections)
 
     global_best_val_timeline = []
-    for _ in range(iterations):
+    iter_times = []
+    while time.time() - start_time <= timeout * 60:
+        iter_start_time = time.time()
         neighbour_pos = None
         for i in range(len(swarm_pos)):
             if i == 0:
@@ -116,7 +120,8 @@ def jpso_vertex_cover(graph_data, swarm_size, iterations):
 
             swarm_pos[i] = particle_pos
         global_best_val_timeline.append(g_best_score)
+        iter_times.append(time.time() - iter_start_time)
         # print(g_best_score)
         # print(global_best_pos)
 
-    return global_best_pos, global_best_val_timeline
+    return global_best_pos, global_best_val_timeline, iter_times
