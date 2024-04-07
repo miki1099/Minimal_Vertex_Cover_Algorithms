@@ -108,13 +108,14 @@ def combine_new_place(bee_pos, new_place_by_onlooker, connections):
 
 
 def abc_vertex_cover(graph_data, swarm_size, timeout):
-    start_time = time.time()
     (num_vertices, adjacency_matrix, connections) = graph_data
     swarm_pos = init_swarm(swarm_size, num_vertices, connections)
     (global_best_pos, g_best_score) = get_best(swarm_pos, connections)
 
     global_best_val_timeline = []
     iter_times = []
+    start_time = time.time()
+    global_best_at = 0
     while time.time() - start_time <= timeout * 60:
         iter_start_time = time.time()
         for i in range(len(swarm_pos)):
@@ -133,6 +134,7 @@ def abc_vertex_cover(graph_data, swarm_size, timeout):
             solution_quality = count_vertices(combined_new_place)
 
             if g_best_score > solution_quality:
+                global_best_at = time.time() - start_time
                 global_best_pos = combined_new_place
                 g_best_score = solution_quality
 
@@ -148,4 +150,4 @@ def abc_vertex_cover(graph_data, swarm_size, timeout):
         # print(g_best_score)
         # print(global_best_pos)
 
-    return global_best_pos, global_best_val_timeline, iter_times
+    return global_best_pos, global_best_val_timeline, iter_times, global_best_at

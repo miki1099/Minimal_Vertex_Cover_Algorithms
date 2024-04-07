@@ -59,7 +59,6 @@ def replace(new_gen, population):
 
 
 def genetic_khuri(graph_data, pop_size, timeout):
-    start_time = time.time()
     (num_vertices, adjacency_matrix, connections) = graph_data
     gene_size = num_vertices
     mut_rate = 1/num_vertices
@@ -73,6 +72,8 @@ def genetic_khuri(graph_data, pop_size, timeout):
         population.append(vertex_cover_fitness(initial_population[_], connections))
 
     iter_times = []
+    start_time = time.time()
+    global_best_at = 0
     while time.time() - start_time <= timeout * 60:
         iter_start_time = time.time()
 
@@ -87,6 +88,7 @@ def genetic_khuri(graph_data, pop_size, timeout):
 
         for individual in new_gen:
             if g_best_fit > individual[1]:
+                global_best_at = time.time() - start_time
                 g_best_fit = individual[1]
                 g_best_pos = individual[0]
 
@@ -94,4 +96,4 @@ def genetic_khuri(graph_data, pop_size, timeout):
         population = replace(new_gen, population)
         iter_times.append(time.time() - iter_start_time)
 
-    return g_best_pos, global_best_val_timeline, iter_times
+    return g_best_pos, global_best_val_timeline, iter_times, global_best_at
