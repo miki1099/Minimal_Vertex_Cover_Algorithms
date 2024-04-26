@@ -27,11 +27,11 @@ for index, filename in enumerate(list_dir):
     if num_vertices < 600:
         timeout = 20
     elif num_vertices < 1000:
-        timeout = 35
+        timeout = 30
     elif num_vertices < 2000:
-        timeout = 45
-    else:
         timeout = 60
+    else:
+        timeout = 100
 
     global_best_sum = 0
     global_best_pos_timeline_sum = []
@@ -53,7 +53,7 @@ for index, filename in enumerate(list_dir):
     global_best_pos_timeline_avg = [element / REPEAT_COUNT for element in global_best_pos_timeline_sum]
     time_iter_sum_avg = [element / REPEAT_COUNT for element in time_iter_sum]
     avg_iter_time = sum(time_iter_sum_avg) / len(time_iter_sum_avg)
-    avg_global_best_at = global_best_sum / REPEAT_COUNT
+    avg_global_best_at = global_best_at_sum / REPEAT_COUNT
 
     sheet.append([filename])
     sheet.append(["best found", "avg iteration time", "avg best solution found in sec"])
