@@ -27,9 +27,9 @@ for index, filename in enumerate(list_dir):
     if num_vertices < 600:
         timeout = 20
     elif num_vertices < 1000:
-        timeout = 30
+        timeout = 45
     elif num_vertices < 2000:
-        timeout = 60
+        timeout = 80
     else:
         timeout = 100
 
