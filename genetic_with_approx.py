@@ -60,6 +60,7 @@ def replace(new_gen, population):
 
 def make_genome_feasible_approx(population, connections):
     feasible_solutions = []
+    random.shuffle(connections)
     for _ in range(len(population)):
         feasible_solutions.append(mvc_approx(population[_], connections))
 
