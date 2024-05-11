@@ -9,7 +9,7 @@ from genetic_with_adjacency_matrix_approx import genetic_adjacency_matrix_approx
 sys.setrecursionlimit(30000)
 folder_path = './DIMACS benchmarks'
 
-REPEAT_COUNT = 1
+REPEAT_COUNT = 5
 results_filename = 'genetic_adjacency_matrix_approx_tests.xlsx'
 list_dir = os.listdir(folder_path)
 
